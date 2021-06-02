@@ -6,10 +6,10 @@
 
 **Initial Setup**
 
-- [ ] 1. Create separate directory for frontend
-- [ ] 2. Create `index.html` file with script tag connecting your `index.js`. Ex: `<script type="text/javascript" src="index.js"></script>`
-- [ ] 3. Create `index.js`, `console.log("in index.js")`, and check for the logged message in your dev tools to confirm the `index.html` <> `index.js` connection was established.
-- [ ] 4. Initialize a `git` repo for frontend repository.
+- [x] 1. Create separate directory for frontend
+- [x] 2. Create `index.html` file with script tag connecting your `index.js`. Ex: `<script type="text/javascript" src="index.js"></script>`
+- [x] 3. Create `index.js`, `console.log("in index.js")`, and check for the logged message in your dev tools to confirm the `index.html` <> `index.js` connection was established.
+- [x] 4. Initialize a `git` repo for frontend repository.
 
 **Connect your API to your frontend!**
 
