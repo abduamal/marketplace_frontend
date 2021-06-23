@@ -1,4 +1,4 @@
-const endPoint = "http://localhost:3000/shops"
+const shopEndPoint = "http://localhost:3000/shops"
 // When the DOMContentLoads I want to make a...
 document.addEventListener('DOMContentLoaded', () => {
   getShops()
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ...get request translates our backend data into json
 function getShops(){
-  fetch(endPoint)
+  fetch(shopEndPoint)
   .then(response => response.json())
   .then(shops => {
     // I then want to iterate over the json data...
@@ -42,7 +42,7 @@ function shopFetch(name, industry){
   console.log(name, industry)
   // body building
   const bodyData = {name, industry}
-  fetch(endPoint, {
+  fetch(shopEndPoint, {
     // using the post method because I am making a post request
     method: "POST",
     headers: {"Content-Type": "application/json"},
