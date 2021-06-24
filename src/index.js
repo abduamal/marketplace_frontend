@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createShopForm.addEventListener("submit", (e)=> createShopHandler(e) )
 })
 
+
 // ...get request translates our backend data into json
 function getShops(){
   fetch(shopEndPoint)
@@ -18,15 +19,8 @@ function getShops(){
       // and then I want to display different attributes and save them to a function
       // how can I refactor this into a get request function?
       // rendering is important because w/o it, there is no meaningful output
-      const shopMarkup = `
-      <div data-id=${shop.id}>
-        <h3>${shop.attributes.name}</h3>
-        <h5>${shop.attributes.industry}</h5>
-        <button data-id=${shop.id}>edit</button>
-      </div>
-      <br><br>`;
-// I can then add that function to the shop container which will then be rendered in the browser
-      document.querySelector('#shop-container').innerHTML += shopMarkup
+      let newShop = new Shop(shop, shop.attributes)
+      document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
     })
   })
 }
@@ -35,9 +29,9 @@ function createShopHandler(e){
   e.preventDefault()
   const nameInput = document.querySelector('#input-name').value
   const industryInput = document.querySelector('#input-industry').value
-  shopFetch(nameInput, industryInput)
+  postShop(nameInput, industryInput)
 }
-function shopFetch(name, industry){
+function postShop(name, industry){
   // confirm that values are coming in correctly
   console.log(name, industry)
   // body building
@@ -51,16 +45,9 @@ function shopFetch(name, industry){
   .then(response => response.json())
   .then(shop => {
     console.log(shop)
-    const shopData = shop.data.attributes
+    const shopData = shop.data
     // render JSON response
-    // refactor the following into a render function to DRY this up!
-    const shopMarkup = `
-    <div data-id=${shop.id}>
-      <h3>${shopData.name}</h3>
-      <h5>${shopData.industry}</h5>
-      <button data-id=${shop.id}>edit</button>
-    </div>
-    <br><br>`;
-    document.querySelector('#shop-container').innerHTML += shopMarkup
+    let newShop = new Shop(shopData, shopData.attributes)
+    render(shopData)
   })
 }
