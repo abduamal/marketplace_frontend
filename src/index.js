@@ -48,6 +48,6 @@ function postShop(name, industry){
     const shopData = shop.data
     // render JSON response
     let newShop = new Shop(shopData, shopData.attributes)
-    render(shopData)
+    document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
   })
 }
