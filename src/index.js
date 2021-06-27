@@ -2,12 +2,25 @@ const shopEndPoint = "http://localhost:3000/shops"
 // When the DOMContentLoads I want to make a...
 document.addEventListener('DOMContentLoaded', () => {
   getShops()
-
+  // Listen for a submit event and handle the data
   const createShopForm = document.querySelector("#create-shop-form")
-
   createShopForm.addEventListener("submit", (e)=> createShopHandler(e) )
+  // Listen for a click event on the shop container
+  // const shopContainer = document.querySelector('#shop-container')
+  // shopContainer.addEventListener("click", e => {
+  //   console.log("clicked");
+  //   debugger
+  //   const id = parseInt(e.target.dataset.id)
+  //   const shop = Shop.findById(id)
+  //   // console.log(shop);
+  //   // render edit form once button is clicked
+  //   document.querySelector('#update-shop').innerHTML = shop.renderShopUpdateForm()
+  // })
+  // Listen for the submit event of the edit form and handle the data
+  // document.querySelector('update-shop').addEventListener('submit', e => updateShopFormHandler(e))
+  // .addEventListener('submit', e => updateShopFormHandler(e))
+  // showEditForms()
 })
-
 
 // ...get request translates our backend data into json
 function getShops(){
@@ -22,7 +35,18 @@ function getShops(){
       let newShop = new Shop(shop, shop.attributes)
       document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
     })
+    showEditForms()
   })
+}
+
+function showEditForms(){
+  editButtons = document.getElementsByClassName("edit-button")
+  for (let i = 0; i < editButtons.length; i++){
+    editButtons[i].addEventListener("click", e => {
+      e.preventDefault()
+      console.log("form");
+    })
+  }
 }
 
 function createShopHandler(e){
@@ -31,6 +55,7 @@ function createShopHandler(e){
   const industryInput = document.querySelector('#input-industry').value
   postShop(nameInput, industryInput)
 }
+
 function postShop(name, industry){
   // confirm that values are coming in correctly
   console.log(name, industry)
@@ -50,4 +75,31 @@ function postShop(name, industry){
     let newShop = new Shop(shopData, shopData.attributes)
     document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
   })
+}
+
+
+
+// Handle the data from the submit event
+function updateShopFormHandler(e){
+  e.preventDefault()
+  const id = parseInt(e.target.dataset.id)
+  const shop = Shop.findById(id)
+  const name = e.target.querySelector('#input-name').value
+  const industry = e.target.querySelector('#input-industry').value
+  patchShop(shop, name, industry)
+}
+
+//Send the PATCH Request to the backend
+function patchShop(shop, name, industry){
+  const bodyJSON = {name, industry}
+  fetch(`http://localhost:3000/shops/${shop.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify(bodyJSON),
+  })
+  .then(res = res.json())
+  .then(updatedShop => console.log(updatedShop))
 }
