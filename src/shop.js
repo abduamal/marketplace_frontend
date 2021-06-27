@@ -16,5 +16,10 @@ class Shop {
       </div>
       <br><br>`;
   }
+
+  static findById(id) {
+    return this.all.find(shop => shop.id === id);
+  }
+
 }
 Shop.all = []
