@@ -1,4 +1,3 @@
-console.log("in shop js?");
 class Shop {
   constructor(shop, shopAttributes) {
     this.id = shop.id
