@@ -12,7 +12,7 @@ class Shop {
       <div data-id=${this.id}>
         <h3>${this.name}</h3>
         <h5>${this.industry}</h5>
-        <button data-id=${this.id}>edit</button>
+        <button data-id=${this.id} class="edit-button">edit</button>
       </div>
       <br><br>`;
   }
