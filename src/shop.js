@@ -17,7 +17,7 @@ class Shop {
   }
 
   static findById(id) {
-    return this.all.find(shop => shop.id === id);
+    return this.all[id-1]
   }
 
   renderShopUpdateForm(){
@@ -32,8 +32,7 @@ class Shop {
       <label>Industry</label>
       <input id="input-industry" type="text" name="industry" value="${this.industry}" class="input-text">
       <br><br
-
-      <input id='edit-button' type="submit" name="submit" value="Edit Shop" class="submit">
+      <button type="submit" class="submit-button" value="submit">save</button>
     </form>
     `;
   }

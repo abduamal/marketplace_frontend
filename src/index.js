@@ -44,7 +44,13 @@ function showEditForms(){
   for (let i = 0; i < editButtons.length; i++){
     editButtons[i].addEventListener("click", e => {
       e.preventDefault()
-      console.log("form");
+      // editButtons[i].dataset.id...this works | or is it e.target.dataset.id?
+      const id = parseInt(editButtons[i].dataset.id)
+      const shop = Shop.findById(id)
+      console.log(shop)
+      document.querySelector('#update-shop').innerHTML = shop.renderShopUpdateForm()
+      // Listen for the submit event of the edit form and handle the data
+      document.querySelector('#update-shop').addEventListener("submit", e => updateShopFormHandler(shop))
     })
   }
 }
@@ -80,10 +86,10 @@ function postShop(name, industry){
 
 
 // Handle the data from the submit event
-function updateShopFormHandler(e){
+function updateShopFormHandler(shop){
   e.preventDefault()
-  const id = parseInt(e.target.dataset.id)
-  const shop = Shop.findById(id)
+  // const id = parseInt(e.target.dataset.id)
+  // const shop = Shop.findById(id)
   const name = e.target.querySelector('#input-name').value
   const industry = e.target.querySelector('#input-industry').value
   patchShop(shop, name, industry)
