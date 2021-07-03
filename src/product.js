@@ -1,5 +1,5 @@
 class Product {
-  constructor(product, productAttributes) {
+  constructor(product) {
     this.id = product.id
     this.shop = product.attributes.shop
     this.name = product.attributes.name
