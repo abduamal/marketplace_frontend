@@ -31,7 +31,7 @@ class Shop {
 
       <label>Industry</label>
       <input id="input-industry" type="text" name="industry" value="${this.industry}" class="input-text">
-      <br><br
+      <br><br>
       <button type="submit" class="submit-button" value="submit">save</button>
     </form>
     `;
