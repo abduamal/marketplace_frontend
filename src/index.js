@@ -97,6 +97,26 @@ function postShop(name, industry){
 //   postShop(nameInput, industryInput)
 // }
 
+// function postShop(name, industry){
+//   // confirm that values are coming in correctly
+//   console.log(name, industry)
+//   // body building
+//   const bodyData = {name, industry}
+//   fetch(shopEndPoint, {
+//     // using the post method because I am making a post request
+//     method: "POST",
+//     headers: {"Content-Type": "application/json"},
+//     body: JSON.stringify(bodyData)
+//   })
+//   .then(response => response.json())
+//   .then(shop => {
+//     console.log(shop)
+//     const shopData = shop.data
+//     // render JSON response
+//     let newShop = new Shop(shopData, shopData.attributes)
+//     document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
+//   })
+// }
 
 // Handle the data from the submit event
 function updateShopFormHandler(shop){
