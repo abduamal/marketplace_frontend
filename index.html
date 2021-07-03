@@ -7,19 +7,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script type="text/javascript" src="src/shop.js"></script>
+  <script type="text/javascript" src="src/product.js"></script>
   <script type="text/javascript" src="src/index.js"></script>
 </head>
 
 <body>
   <!-- refactor this into a form card written in JS -->
   <div class="form-container">
-    <form id="create-shop-form" style="" action="index.html" method="post">
+    <!-- <form id="create-shop-form" style="" action="index.html" method="post">
       <h3>Add a Shop!</h3>
       <input id="input-name" type="text" name="name" value="" placeholder="Name your shop here..." class="input-text">
       <br><br>
       <input id="input-industry" type="text" name="industry" value="" placeholder="What's your shop's industry?" class="input-text">
-      <!-- Or should I do an industries dropdown list? -->
       <input id="create-button" type="submit" name="submit" value="Create a New Shop" class="submit">
+    </form>
+    <br><br> -->
+    <form id="create-product-form" class="" action="index.html" method="post">
+      <h3>Add a Product!</h3>
+      <input id="input-name" type="text" name="name" value="" placeholder="Name your product here..." class="input-text">
+      <br><br>
+      <select id="shops" name="shops">
+        <option value="1">Sauer-Daniel</option>
+        <option value="2">Smitham, Lakin and Stroman</option>
+        <option value="8">Galleria</option>
+      </select>
+      <!-- <button type="button" name="button" onclick="addToDDL()">Add Shop</button> -->
+      <br><br>
+      <input id="input-price" type="text" name="price" value="" placeholder="Price it here..." class="input-text">
+      <br><br>
+      <input id="input-quantity" type="text" name="quantity" value="" placeholder="Current quantity?" class="input-text">
+      <br><br>
+      <textarea id="input-description" name="description" rows="8" cols="80" value="" placeholder="Enter your product description..." ></textarea>
+      <br><br>
+      <input type="hidden" name="shop-id" value="">
+      <br><br>
+      <input id= 'create-button' type="submit" name="submit" value="Create New Product" class="submit">
     </form>
   </div>
   <br><br>
@@ -27,6 +49,9 @@
   </div>
   <br><br>
   <div id="update-shop">
+  </div>
+  <br><br>
+  <div id="product-container">
   </div>
 </body>
 
