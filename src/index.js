@@ -44,7 +44,7 @@ function showEditForms(){
       console.log(shop)
       document.querySelector('#update-shop').innerHTML = shop.renderShopUpdateForm()
       // Listen for the submit event of the edit form and handle the data
-      document.querySelector('#update-shop').addEventListener("submit", e => updateShopFormHandler(shop))
+      document.querySelector('#update-shop').addEventListener("submit", e => updateShopFormHandler(e))
     })
   }
 }
@@ -78,17 +78,17 @@ function showEditForms(){
 // }
 
 // Handle the data from the submit event
-function updateShopFormHandler(shop){
+function updateShopFormHandler(e){
   e.preventDefault()
-  // const id = parseInt(e.target.dataset.id)
-  // const shop = Shop.findById(id)
+  const id = parseInt(e.target.dataset.id)
+  const shop = Shop.findById(id)
   const name = e.target.querySelector('#input-name').value
   const industry = e.target.querySelector('#input-industry').value
-  patchShop(name, industry)
+  patchShop(shop, name, industry)
 }
 
 //Send the PATCH Request to the backend
-function patchShop(name, industry){
+function patchShop(shop, name, industry){
   const bodyJSON = {name, industry}
   fetch(`http://localhost:3000/shops/${shop.id}`, {
     method: 'PATCH',
@@ -98,7 +98,7 @@ function patchShop(name, industry){
     },
     body: JSON.stringify(bodyJSON),
   })
-  .then(res = res.json())
+  .then(response => response.json())
   .then(updatedShop => console.log(updatedShop))
 }
 
