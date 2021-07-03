@@ -1,4 +1,5 @@
 const shopEndPoint = "http://localhost:3000/shops"
+const productEndPoint = "http://localhost:3000/products"
 // When the DOMContentLoads I want to make a...
 document.addEventListener('DOMContentLoaded', () => {
   getShops()
@@ -20,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // document.querySelector('update-shop').addEventListener('submit', e => updateShopFormHandler(e))
   // .addEventListener('submit', e => updateShopFormHandler(e))
   // showEditForms()
+  // PRODUCTS
+  getProducts()
+  // Listen for submit event and handle the data
+  const createProductForm = document.querySelector("#create-product-form")
+  createProductForm.addEventListener("submit", (e) => createProductHandler(e) )
 })
 
 // ...get request translates our backend data into json
@@ -38,6 +44,7 @@ function getShops(){
     showEditForms()
   })
 }
+
 
 function showEditForms(){
   editButtons = document.getElementsByClassName("edit-button")
