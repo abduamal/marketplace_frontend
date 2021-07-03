@@ -90,6 +90,12 @@ function postShop(name, industry){
   })
 }
 
+// function createShopHandler(e){
+//   e.preventDefault()
+//   const nameInput = document.querySelector('#input-name').value
+//   const industryInput = document.querySelector('#input-industry').value
+//   postShop(nameInput, industryInput)
+// }
 
 
 // Handle the data from the submit event
