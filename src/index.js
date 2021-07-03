@@ -2,25 +2,12 @@ const shopEndPoint = "http://localhost:3000/shops"
 const productEndPoint = "http://localhost:3000/products"
 // When the DOMContentLoads I want to make a...
 document.addEventListener('DOMContentLoaded', () => {
+  // SHOPS
   getShops()
   // Listen for a submit event and handle the data
-  const createShopForm = document.querySelector("#create-shop-form")
-  createShopForm.addEventListener("submit", (e)=> createShopHandler(e) )
-  // Listen for a click event on the shop container
-  // const shopContainer = document.querySelector('#shop-container')
-  // shopContainer.addEventListener("click", e => {
-  //   console.log("clicked");
-  //   debugger
-  //   const id = parseInt(e.target.dataset.id)
-  //   const shop = Shop.findById(id)
-  //   // console.log(shop);
-  //   // render edit form once button is clicked
-  //   document.querySelector('#update-shop').innerHTML = shop.renderShopUpdateForm()
-  // })
-  // Listen for the submit event of the edit form and handle the data
-  // document.querySelector('update-shop').addEventListener('submit', e => updateShopFormHandler(e))
-  // .addEventListener('submit', e => updateShopFormHandler(e))
-  // showEditForms()
+  // const createShopForm = document.querySelector("#create-shop-form")
+  // createShopForm.addEventListener("submit", (e) => createShopHandler(e) )
+
   // PRODUCTS
   getProducts()
   // Listen for submit event and handle the data
@@ -62,34 +49,6 @@ function showEditForms(){
   }
 }
 
-function createShopHandler(e){
-  e.preventDefault()
-  const nameInput = document.querySelector('#input-name').value
-  const industryInput = document.querySelector('#input-industry').value
-  postShop(nameInput, industryInput)
-}
-
-function postShop(name, industry){
-  // confirm that values are coming in correctly
-  console.log(name, industry)
-  // body building
-  const bodyData = {name, industry}
-  fetch(shopEndPoint, {
-    // using the post method because I am making a post request
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(bodyData)
-  })
-  .then(response => response.json())
-  .then(shop => {
-    console.log(shop)
-    const shopData = shop.data
-    // render JSON response
-    let newShop = new Shop(shopData, shopData.attributes)
-    document.querySelector('#shop-container').innerHTML += newShop.renderShopCard()
-  })
-}
-
 // function createShopHandler(e){
 //   e.preventDefault()
 //   const nameInput = document.querySelector('#input-name').value
@@ -125,11 +84,11 @@ function updateShopFormHandler(shop){
   // const shop = Shop.findById(id)
   const name = e.target.querySelector('#input-name').value
   const industry = e.target.querySelector('#input-industry').value
-  patchShop(shop, name, industry)
+  patchShop(name, industry)
 }
 
 //Send the PATCH Request to the backend
-function patchShop(shop, name, industry){
+function patchShop(name, industry){
   const bodyJSON = {name, industry}
   fetch(`http://localhost:3000/shops/${shop.id}`, {
     method: 'PATCH',
@@ -142,3 +101,55 @@ function patchShop(shop, name, industry){
   .then(res = res.json())
   .then(updatedShop => console.log(updatedShop))
 }
+
+function getProducts(){
+  fetch(productEndPoint)
+  .then(response => response.json())
+  .then(products => {
+    products.data.forEach(product => {
+      // new instance of the Product class for every product in the array from the DB
+      let newProduct = new Product(product, product.attributes)
+
+      document.querySelector('#product-container').innerHTML += newProduct.renderProductCard()
+    })
+  })
+}
+
+function createProductHandler(e){
+  e.preventDefault()
+  const nameInput = document.querySelector('#input-name').value
+  const shopInput = document.querySelector('#shops').value
+  const shopId = parseInt(shopInput)
+  const priceInput = document.querySelector('#input-price').value
+  const quantityInput = document.querySelector('#input-quantity').value
+  const descriptionInput = document.querySelector('#input-description').value
+  postProduct(nameInput, priceInput, quantityInput, descriptionInput,shopId)
+}
+
+function postProduct(name, price, quantity, description, shop_id){
+  // confirming that the values are coming through properly
+  console.log(name, price, quantity, description, shop_id)
+  // body building
+  const bodyData = {name, price, quantity, description, shop_id}
+  fetch(productEndPoint, {
+    // using the post method because I am making a post request
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(bodyData)
+  })
+  .then(response => response.json())
+  .then(product => {
+    console.log(product)
+    const productData = product.data
+    // render JSON response
+    let newProduct = new Product(productData, productData.attributes)
+    document.querySelector('#product-container').innerHTML += newProduct.renderProductCard()
+  })
+}
+
+// function addToDDL(shop){
+//   const list = document.getElementById("shop-name")
+//   const addedShop = document.createElement("addedShop")
+//   addedShop.text = shop
+//   list.add(addedShop)
+// }
